@@ -161,18 +161,18 @@ if __name__ == "__main__":
     velx=[50, 50]
     accx=[100, 100]
 
-    p1= posj(90.84,84.61,79.64,0.0,0.0,0.0)      
+    p1= posj(90,0,90,0,90,0)      
     x1= fkin(p1,DR_WORLD)   
     print(x1)         #joint
-    p2= posj(50.0, 0.0, 100.0, 0.0, 90.0, 0.0) #joint
+    p2= posj(0,0,90,0,90,0) #joint
 
     p3 = posj(0.0,0.0,90.0,0.0,90.0,0)
     p4 = posj(60.0,0.0,90.0,0.0,90.0,0.0)
 
 
-    # x1= posx(409, 491, 155.5, 45, 180, 45) #task
+    x1= posx(564.5, 0,491.0, 0, 90, 0) #task
     x2= posx(350.9, 470.5, 485.5,0.0, 90.0, 0.0) #task
-    A1= ikin(x2,0)
+    A1= ikin(x1,2)
     print(A1)  
     # c1 = posx(367, 40, 540.5, 12, 180, 12)
     # c2 = posx(367, 10, 490, 12, 180, 12)
@@ -242,8 +242,8 @@ if __name__ == "__main__":
         # for i in range (0,3):
                
             # movej(p1, vel=60, acc=30)
-                movej(p1, vel=60, acc=30)
-                movej(p2, vel=60, acc=30)
+                movej(p1, vel=50, acc=50)
+                movej(p2, vel=50, acc=50)
                 # set_singularity_handling (DR_AVOID)
                 # set_ref_coord(DR_WORLD)
                 # task_compliance_ctrl(stx = [500, 500, 500, 100, 100, 100],time = 0.1)

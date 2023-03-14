@@ -99,26 +99,63 @@ class MqttToRosBridge(Bridge):
 
         # sepearting the values from dictionary
         list_payload = list(dict_payload.values())
-        list_payload[3] = 0
-        list_payload[4] = 0
-        list_payload[5] = 0
+        # list_payload[3] = 0
+        # list_payload[4] = 0
+        # list_payload[5] = 0
+        # list_payload[6] = 0
+
+        value_4 = 0
+        value_5 = -70
+        value_6 = 0
+
+        rx = 0
+        ry = 90
+        rz = 0
+        # getting button values
+        button_list = ( list_payload[3], list_payload[4], list_payload[5], list_payload[6])
 
         # sepearting the x,y,z values from the list
-        seperated_list = (list_payload[0],list_payload[1],list_payload[2],list_payload[3],list_payload[4],list_payload[5])
-        joystick_maximum_value = 65535
-        joystick_minimum_value = 0
-        robot_maximum = 360
-        converted_payload0 = ((robot_maximum*list_payload[0])/joystick_maximum_value)
-        converted_payload1 = ((robot_maximum*list_payload[1])/joystick_maximum_value)
-        converted_payload2 = ((robot_maximum*list_payload[2])/joystick_maximum_value)
-        Total_list = (converted_payload0,converted_payload1,converted_payload2,list_payload[3],list_payload[4],list_payload[5])
+        # seperated_list = (list_payload[0],list_payload[1],list_payload[2],value_4,value_5,value_6)
+        seperated_list = (list_payload[0],list_payload[1],list_payload[2],rx,ry,rz)
 
-        # print(converted_payload)
+        joystick_maximum_value = 65535
+        joystick_minimum_value1 = 0
+        joystick_minimum_value2 = 32767
+        joint1 = 360
+        joint2 = 95
+        joint3 = 135
+        joint4 = 360
+        joint5 = 135
+        joint6 = 360
+
+        x = 50
+        y = 50
+        z = 50
+      
+
+        # converted_payload0 = ((joint1*list_payload[0])/joystick_maximum_value)
+        # converted_payload1 = ((joint2*list_payload[1])/joystick_maximum_value)
+        # converted_payload2 = ((joint3*list_payload[2])/joystick_maximum_value)
+
+        # converted_payload0 = ((((list_payload[0])/joystick_minimum_value2)*joint1)-joint1)
+        # converted_payload1 = ((((list_payload[1])/joystick_minimum_value2)*joint2)-joint2)
+        # converted_payload2 = ((((list_payload[2])/joystick_minimum_value2)*joint3)-joint3)
+        # Total_list = (converted_payload0,converted_payload1,converted_payload2,value_4,value_5,value_6)
+
+
+        converted_payload0 = ((((list_payload[0])/joystick_minimum_value2)*x)-x)
+        converted_payload1 = ((((list_payload[1])/joystick_minimum_value2)*y)-y)
+        converted_payload2 = ((((list_payload[2])/joystick_minimum_value2)*z)-z)
+        Total_list = (converted_payload0,converted_payload1,converted_payload2,rx,ry,rz)
+
+
+
         # Getting msgs in the msgMqttSub file
         msg_mqtt_sub = msgMqttSub()  
         msg_mqtt_sub.timestamp = rospy.Time.now()
         msg_mqtt_sub.topic = mqtt_msg.topic
         msg_mqtt_sub.message = Total_list
+        msg_mqtt_sub.button = button_list
         # msg = JogMultiAxis()
         # msg.jog_axis = seperated_list
         # publishing the msg 
